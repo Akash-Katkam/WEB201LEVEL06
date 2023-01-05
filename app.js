@@ -38,16 +38,6 @@ app.get("/", async function (request, response) {
   }
 });
 
-app.get("/todos/:id", async function (request, response) {
-  try {
-    const todo = await Todo.findByPk(request.params.id);
-    return response.json(todo);
-  } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
-  }
-});
-
 app.post("/todos", async function (request, response) {
   try {
     await Todo.addTodo({
