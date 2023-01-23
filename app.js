@@ -52,7 +52,7 @@ passport.use(
       passwordField: "password",
     },
     (username, password, done) => {
-      User.findOne({ where: { email: username } })
+      User.findOne({ where: { email: username.toLowerCase() } })
         .then(async (user) => {
           // console.log(user);
           const result = await bcrypt.compare(password, user.password);
@@ -211,7 +211,7 @@ app.post("/users", async function (request, response) {
   await User.create({
     firstName: request.body.firstname,
     lastName: request.body.lastname,
-    email: request.body.email,
+    email: request.body.email.toLowerCase(),
     password: hashedPwd,
   })
     .then((user) => {
